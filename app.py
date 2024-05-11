@@ -1,5 +1,6 @@
 from dash import Dash, html, dcc, Input, Output, dash_table
 import pandas as pd
+from dash.dependencies import State
 from scrape import scrape_data
 import time
 
