@@ -9,14 +9,13 @@ from selenium.common.exceptions import TimeoutException
 from time import sleep
 import pandas as pd
 
-url_base = "https://www.nature.com/"
-search_query = "enzymatic degradation plastic"
-
 def calculate(string):
     return string + "abs"
 
 
 def scrape_data():
+    url_base = "https://www.nature.com/"
+    search_query = "enzymatic degradation plastic"
     options = Options()
     options.add_argument("--start-maximized")  # Maximizing the window
     driver = webdriver.Chrome(options=options)  # Creating a Chrome WebDriver instance
