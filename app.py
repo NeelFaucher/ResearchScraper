@@ -1,4 +1,4 @@
-from dash import Dash, html, dcc, Input, Output, DataTable, TableColumn
+from dash import Dash, html, dcc, Input, Output, dash_table
 import pandas as pd
 from scrape import scrape_data
 
@@ -35,7 +35,7 @@ def search_value(n_clicks, search_value):
         # Here you would ideally use search_value to filter data or perform any other operations
         # For now, let's just call scrape_data() and display the DataFrame
         df = scrape_data()
-        return DataTable(
+        return dash_table.DataTable(
             id='data-table',
             columns=[{"name": i, "id": i} for i in df.columns],
             data=df.to_dict('records')
