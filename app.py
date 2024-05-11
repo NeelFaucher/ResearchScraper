@@ -41,7 +41,6 @@ def display_data_table(scraped_data):
         # Data not fetched yet, show loading spinner
         return html.Div("Loading...", style={'textAlign': 'center'})
     else:
-        # Data fetched, display DataTable
         return dash_table.DataTable(
             id='data-table',
             columns=[{"name": i, "id": i} for i in scraped_data.columns],
