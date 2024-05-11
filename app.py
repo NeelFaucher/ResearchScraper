@@ -28,7 +28,7 @@ app.layout = html.Div([
 def search_value(n_clicks, search_value):
     if n_clicks > 0:
         # Trigger scraping data
-        return scrape_data(search_value)
+        return scrape_data()
     else:
         raise PreventUpdate
 
