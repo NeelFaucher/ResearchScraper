@@ -1,8 +1,8 @@
 from dash import Dash, html, dcc, Input, Output, dash_table
 from dash.exceptions import PreventUpdate
 import pandas as pd
-from dash.dependencies import State
 from scrape import MyTestClass  # Import scrape_data if it's in a separate module
+from dash.dependencies import State  # Import State
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -29,12 +29,14 @@ def search_value(n_clicks, search_value):
     if n_clicks > 0:
         print("CLICKED")
         # Trigger scraping data
-        test_inst = MyTestClass()
-        scraped_data = test_inst.test_scrape_data()
-
+        scraped_data = scrape_data(search_value)
         return scraped_data
     else:
         raise PreventUpdate
+
+def scrape_data(search_query):
+    test_inst = MyTestClass()
+    return test_inst.test_scrape_data(search_query)
 
 @app.callback(
     Output('data-table-container', 'children'),
