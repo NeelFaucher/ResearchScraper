@@ -2,7 +2,7 @@ from dash import Dash, html, dcc, Input, Output, dash_table
 from dash.exceptions import PreventUpdate
 import pandas as pd
 from dash.dependencies import State
-from scrape import scrape_data  # Import scrape_data if it's in a separate module
+from scrape import MyTestClass  # Import scrape_data if it's in a separate module
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -28,7 +28,10 @@ app.layout = html.Div([
 def search_value(n_clicks, search_value):
     if n_clicks > 0:
         # Trigger scraping data
-        return scrape_data()
+        test_inst = MyTestClass()
+        scraped_data = test_inst.test_scrape_data()
+
+        return scraped_data
     else:
         raise PreventUpdate
 
