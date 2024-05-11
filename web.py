@@ -3,7 +3,7 @@ import dash
 from dash import html, dash_table
 import pandas as pd
 
-# Create the Dash app
+# Create the Dash app instance
 app = dash.Dash(__name__)
 
 # Function to update table layout
@@ -33,7 +33,9 @@ def serve_layout():
 # Set the layout of the Dash app
 app.layout = serve_layout
 
-# Run the Dash app with Gunicorn
+# For Gunicorn to recognize the app
+server = app.server
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8050))
     app.run_server(debug=True, host='0.0.0.0', port=port)
