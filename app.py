@@ -3,7 +3,7 @@ from dash.exceptions import PreventUpdate
 import pandas as pd
 from scrape import MyTestClass
 from dash.dependencies import State
-
+from seleniumbase import BaseCase
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 

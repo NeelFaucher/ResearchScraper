@@ -7,14 +7,6 @@ class MyTestClass(BaseCase):
     def setUp(self):
         super().setUp()  # Call the setUp() method of the BaseCase class
 
-    def __enter__(self):
-        # Add any setup code here
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        # Add any cleanup code here
-        pass
-
     def test_scrape_data(self):
         url_base = "https://www.nature.com/"
         search_query = "enzymatic degradation plastic"
