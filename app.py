@@ -32,12 +32,12 @@ app.layout = html.Div([
 )
 def search_value(n_clicks, search_value):
     if n_clicks > 0 and search_value:
-        return f'You searched for: {search_value}'
+        search_text = f'You searched for: {search_value}'
+        result_df = df[df.stack().str.contains(search_value, case=False, na=False).any(level=0)]
+        table = result_df.to_html(index=False)
+        return search_text, table
     else:
-        return ""
-    
-def display_dataframe():
-    return df.to_html(index=False)
+        return "", ""
 
 if __name__ == '__main__':
     app.run_server(debug=True)
