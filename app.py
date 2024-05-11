@@ -1,6 +1,5 @@
 from dash import Dash, dcc, html, Input, Output, callback
-import os
-
+import pandas as pd
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -8,18 +7,36 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 server = app.server
 
+data = {
+    'A': [1, 2, 3, 4, 5],
+    'B': ['a', 'b', 'c', 'd', 'e'],
+    'C': [True, False, True, False, True]
+}
+
+# Creating the DataFrame
+df = pd.DataFrame(data)
+
 app.layout = html.Div([
     html.H1('Joys Scraper'),
-    dcc.Dropdown(['LA', 'NYC', 'MTL'],
-        'LA',
-        id='dropdown'
+    dcc.Dropdown(
+        id='dropdown',
+        options=[
+            {'label': col, 'value': col} for col in df.columns
+        ],
+        value='A'
     ),
     html.Div(id='display-value')
 ])
 
-@callback(Output('display-value', 'children'), Input('dropdown', 'value'))
-def display_value(value):
-    return f'You have selected {value}'
+@app.callback(
+    Output('display-value', 'children'),
+    [Input('dropdown', 'value')]
+)
+def display_value(column_name):
+    return html.Table(
+        [html.Tr([html.Th(col) for col in df.columns])] +
+        [html.Tr([html.Td(df.iloc[i][col]) for col in df.columns]) for i in range(len(df))]
+    )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(debug=True)
