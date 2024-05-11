@@ -1,5 +1,6 @@
 from dash import Dash, html, dcc, Input, Output
 import pandas as pd
+from scrape import calculate
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -12,8 +13,6 @@ data = {
     'B': ['a', 'b', 'c', 'd', 'e'],
     'C': [True, False, True, False, True]
 }
-
-# Creating the DataFrame
 df = pd.DataFrame(data)
 
 app.layout = html.Div([
@@ -38,7 +37,8 @@ app.layout = html.Div([
 )
 def search_value(n_clicks, search_value):
     if n_clicks > 0 and search_value:
-        return f'You searched for: {search_value}'
+        result = calculate(search_value)  # Call calculate function with searched value
+        return f'Result of calculation: {result}'
     else:
         return ""
 
