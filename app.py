@@ -28,7 +28,8 @@ app.layout = html.Div([
 def scrape_data(n_clicks, search_value):
     if n_clicks > 0:
         test_inst = MyTestClass()
-        return test_inst.test_scrape_data()
+        with test_inst:  # Create an instance and enter its context
+            return test_inst.test_scrape_data()
     else:
         raise PreventUpdate
 
