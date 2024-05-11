@@ -57,7 +57,7 @@ def scrape_data():
         url = link.get_attribute('href')
         urls.append(url)
 
-    for url in urls[:5]:  # This will iterate only over the first 10 URLs
+    for url in urls[:2]:  # This will iterate only over the first 10 URLs
         driver.get(url)
         sleep(0.5)
 
@@ -91,7 +91,7 @@ def scrape_data():
     driver.quit()
 
     data = {
-        'URL': urls[:5],
+        'URL': urls[:2],
         'Title': titles,
         'Authors': authors_list,
         'Date': dates,
@@ -100,6 +100,7 @@ def scrape_data():
 
     # Create a DataFrame
     df = pd.DataFrame(data)
+    print(df)
     return df
 
 if __name__ == "__main__":
