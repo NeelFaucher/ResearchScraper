@@ -1,4 +1,3 @@
-# web.py
 import os
 import dash
 from dash import html, dash_table
@@ -20,7 +19,7 @@ def serve_layout():
     
     # Define the layout of your Dash app
     layout = html.Div([
-        html.H1("Nature Articles on Enzymatic  Degradation of Plastics"),
+        html.H1("Nature Articles on Enzymatic Degradation of Plastics"),
         # Display the DataFrame as a DataTable
         dash_table.DataTable(
             id='table',
