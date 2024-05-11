@@ -14,15 +14,13 @@ class MyTestClass(BaseCase):
         self.maximize_window()  # Maximizing the window
         
         # Waiting for the accept button to be clickable
-       # self.wait_for_clickable_element('button[data-cc-action="accept"]')
-      #  self.wait_for_element_to_be_clickable('button[data-cc-action="accept"]')
+        self.wait_for_element_to_be_clickable('button[data-cc-action="accept"]')
 
         # Clicking the accept button
         self.click('button[data-cc-action="accept"]')
 
         # Waiting for the search button to be clickable
-     #   self.wait_for_clickable_element('a.c-header__link--search')
-     #   self.wait_for_element_to_be_clickable('a.c-header__link--search')
+        self.wait_for_element_to_be_clickable('a.c-header__link--search')
 
         # Clicking on the search button to expand the search form
         self.click('a.c-header__link--search')
@@ -92,3 +90,6 @@ class MyTestClass(BaseCase):
         # Create a DataFrame
         df = pd.DataFrame(data)
         print(df)
+        
+if __name__ == "__main__":
+    MyTestClass(methodName='test_scrape_data').test_scrape_data()

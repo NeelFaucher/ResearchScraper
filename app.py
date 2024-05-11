@@ -27,6 +27,7 @@ app.layout = html.Div([
 )
 def search_value(n_clicks, search_value):
     if n_clicks > 0:
+        print("CLICKED")
         # Trigger scraping data
         test_inst = MyTestClass()
         scraped_data = test_inst.test_scrape_data()
