@@ -4,8 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 
 class MyTestClass(BaseCase):
+    def __enter__(self):
+        # Define behavior when entering the context
+        return self
+    
     def setUp(self):
         super().setUp()  # Call the setUp() method of the BaseCase class
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        # Define cleanup behavior here
+        pass
 
     def test_scrape_data(self):
         url_base = "https://www.nature.com/"
