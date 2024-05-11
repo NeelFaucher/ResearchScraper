@@ -1,4 +1,4 @@
-from dash import Dash, dcc, html, Input, Output, callback
+from dash import Dash, html
 import pandas as pd
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -17,26 +17,12 @@ data = {
 df = pd.DataFrame(data)
 
 app.layout = html.Div([
-    html.H1('Joys Scraper'),
-    dcc.Dropdown(
-        id='dropdown',
-        options=[
-            {'label': col, 'value': col} for col in df.columns
-        ],
-        value='A'
-    ),
-    html.Div(id='display-value')
-])
-
-@app.callback(
-    Output('display-value', 'children'),
-    [Input('dropdown', 'value')]
-)
-def display_value(column_name):
-    return html.Table(
+    html.H1('Joy\'s Scraper'),
+    html.Table(
         [html.Tr([html.Th(col) for col in df.columns])] +
         [html.Tr([html.Td(df.iloc[i][col]) for col in df.columns]) for i in range(len(df))]
     )
+])
 
 if __name__ == '__main__':
     app.run_server(debug=True)
