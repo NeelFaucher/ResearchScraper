@@ -25,20 +25,13 @@ app.layout = html.Div([
     [Input('search-button', 'n_clicks')],
     [State('search-bar', 'value')]
 )
-
-def scrape_data(self):
-    test_inst = MyTestClass()
-    return test_inst.test_scrape_data()
-
-def search_value(n_clicks, search_value):
+def scrape_data(n_clicks, search_value):
     if n_clicks > 0:
-        print("CLICKED")
-        # Trigger scraping data
-        scraped_data = scrape_data(search_value)
-        return scraped_data
+        test_inst = MyTestClass()
+        return test_inst.test_scrape_data()
     else:
         raise PreventUpdate
-    
+
 @app.callback(
     Output('data-table-container', 'children'),
     [Input('search-output', 'children')]
