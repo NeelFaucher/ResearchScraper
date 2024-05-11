@@ -20,7 +20,8 @@ app.layout = html.Div([
     html.H1('Joy\'s Scraper'),
     dcc.Input(id='search-bar', type='text', placeholder='Enter value to search...'),
     html.Button('Search', id='search-button', n_clicks=0),
-    html.Div(id='search-value')
+    html.Div(id='search-value'),
+    html.Div(id='dataframe-output')
 ])
 
 @app.callback(
@@ -31,6 +32,17 @@ app.layout = html.Div([
 def search_value(n_clicks, search_value):
     if n_clicks > 0 and search_value:
         return f'You searched for: {search_value}'
+    else:
+        return ""
+
+@app.callback(
+    Output('dataframe-output', 'children'),
+    [Input('search-button', 'n_clicks')],
+    [Input('search-bar', 'value')]
+)
+def display_dataframe(n_clicks, search_value):
+    if n_clicks > 0 and search_value:
+        return df.to_html(index=False)
     else:
         return ""
 
