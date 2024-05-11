@@ -26,6 +26,7 @@ app.layout = html.Div([
 
 @app.callback(
     Output('search-value', 'children'),
+    Output('dataframe-output', 'children'),
     [Input('search-button', 'n_clicks')],
     [Input('search-bar', 'value')]
 )
@@ -34,17 +35,9 @@ def search_value(n_clicks, search_value):
         return f'You searched for: {search_value}'
     else:
         return ""
-
-@app.callback(
-    Output('dataframe-output', 'children'),
-    [Input('search-button', 'n_clicks')],
-    [Input('search-bar', 'value')]
-)
-def display_dataframe(n_clicks, search_value):
-    if n_clicks > 0 and search_value:
-        return df.to_html(index=False)
-    else:
-        return ""
+    
+def display_dataframe():
+    return df.to_html(index=False)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
