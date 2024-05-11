@@ -1,7 +1,9 @@
 from dash import Dash, html, dcc, Input, Output, dash_table
 from dash.exceptions import PreventUpdate
 import pandas as pd
-from scrape import MyTestClass  # Import scrape_data if it's in a separate module
+from scrape import MyTestClass
+from dash.dependencies import State
+
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
