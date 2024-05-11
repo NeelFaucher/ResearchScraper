@@ -34,9 +34,9 @@ def search_value(n_clicks, search_value):
     else:
         raise PreventUpdate
 
-def scrape_data(search_query):
+def scrape_data(self):
     test_inst = MyTestClass()
-    return test_inst.test_scrape_data(search_query)
+    return test_inst.test_scrape_data(self)
 
 @app.callback(
     Output('data-table-container', 'children'),
