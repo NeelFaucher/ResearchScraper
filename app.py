@@ -17,27 +17,30 @@ data = {
 df = pd.DataFrame(data)
 
 app.layout = html.Div([
-    html.H1('Joy\'s Scraper'),
-    dcc.Input(id='search-bar', type='text', placeholder='Enter value to search...'),
-    html.Button('Search', id='search-button', n_clicks=0),
-    html.Div(id='search-value'),
-    html.Div(id='dataframe-output')
+    html.H1("Joy's Scraper"),
+    html.Div([
+        dcc.Input(id='search-bar', type='text', placeholder='Enter value to search...'),
+        html.Button('Search', id='search-button', n_clicks=0),
+        html.Div(id='search-output')
+    ]),
+    html.Div([
+        html.Table([
+            html.Thead(html.Tr([html.Th(col) for col in df.columns])),
+            html.Tbody([html.Tr([html.Td(df.iloc[i][col]) for col in df.columns]) for i in range(len(df))])
+        ])
+    ])
 ])
 
 @app.callback(
-    Output('search-value', 'children'),
-    Output('dataframe-output', 'children'),
+    Output('search-output', 'children'),
     [Input('search-button', 'n_clicks')],
     [Input('search-bar', 'value')]
 )
 def search_value(n_clicks, search_value):
     if n_clicks > 0 and search_value:
-        search_text = f'You searched for: {search_value}'
-        result_df = df[df.stack().str.contains(search_value, case=False, na=False).any(level=0)]
-        table = result_df.to_html(index=False)
-        return search_text, table
+        return f'You searched for: {search_value}'
     else:
-        return "", ""
+        return ""
 
 if __name__ == '__main__':
     app.run_server(debug=True)
