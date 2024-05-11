@@ -1,23 +1,13 @@
-from dash import Dash, html, dcc, Input, Output
-import dash_table
+from dash import Dash, html, dcc, Input, Output, dash_table
 import pandas as pd
+from scrape import scrape_data
+import time
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 server = app.server
-
-data = {
-    'URL': urls[:2],
-    'Title': titles,
-    'Authors': authors_list,
-    'Date': dates,
-    'Abstract': abstracts
-}
-
-# Create a DataFrame
-df = pd.DataFrame(data)
 
 app.layout = html.Div([
     html.H1("Joy's Scraper"),
@@ -32,16 +22,22 @@ app.layout = html.Div([
 @app.callback(
     Output('search-output', 'children'),
     [Input('search-button', 'n_clicks')],
-    [Input('search-bar', 'value')]
+    [State('search-bar', 'value')]
 )
 def search_value(n_clicks, search_value):
-    if n_clicks > 0 and search_value:
-        filtered_df = df[df['Title'].str.contains(search_value, case=False, regex=False)]
-        return dash_table.DataTable(
-            id='data-table',
-            columns=[{"name": i, "id": i} for i in filtered_df.columns],
-            data=filtered_df.to_dict('records')
-        )
+    if n_clicks > 0:
+        # Call scrape_data to get the DataFrame
+        scraped_data = scrape_data()  # Assuming scrape_data returns a DataFrame
+        time.sleep(5)
+        if not scraped_data.empty:
+            # Display the DataFrame using Dash DataTable
+            return dash_table.DataTable(
+                id='data-table',
+                columns=[{"name": i, "id": i} for i in scraped_data.columns],
+                data=scraped_data.to_dict('records')
+            )
+        else:
+            return "No data available."
     else:
         return ""
 
