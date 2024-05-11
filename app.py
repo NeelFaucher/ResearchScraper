@@ -25,22 +25,51 @@ app.layout = html.Div([
     [Input('search-button', 'n_clicks')],
     [State('search-bar', 'value')]
 )
+
+
 def search_value(n_clicks, search_value):
     if n_clicks > 0:
-        # Call scrape_data to get the DataFrame
-        scraped_data = scrape_data()  # Assuming scrape_data returns a DataFrame
-        time.sleep(5)
-        if not scraped_data.empty:
-            # Display the DataFrame using Dash DataTable
-            return dash_table.DataTable(
-                id='data-table',
-                columns=[{"name": i, "id": i} for i in scraped_data.columns],
-                data=scraped_data.to_dict('records')
-            )
-        else:
-            return "No data available."
+        # Sample data
+        data = {
+            'URL': ['http://example.com/page1', 'http://example.com/page2'],
+            'Title': ['Sample Title 1', 'Sample Title 2'],
+            'Authors': ['Author 1', 'Author 2'],
+            'Date': ['2024-05-11', '2024-05-10'],
+            'Abstract': ['This is the abstract for page 1.', 'This is the abstract for page 2.']
+        }
+
+        # Create DataFrame
+        scraped_data = pd.DataFrame(data)
+
+        # Filter DataFrame based on search_value
+        if search_value:
+            scraped_data = scraped_data[scraped_data['Title'].str.contains(search_value, case=False, regex=False)]
+
+        # Return DataTable
+        return dash_table.DataTable(
+            id='data-table',
+            columns=[{"name": i, "id": i} for i in scraped_data.columns],
+            data=scraped_data.to_dict('records')
+        )
     else:
         return ""
+
+# def search_value(n_clicks, search_value):
+#     if n_clicks > 0:
+#         # Call scrape_data to get the DataFrame
+#         scraped_data = scrape_data()  # Assuming scrape_data returns a DataFrame
+#         time.sleep(5)
+#         if not scraped_data.empty:
+#             # Display the DataFrame using Dash DataTable
+#             return dash_table.DataTable(
+#                 id='data-table',
+#                 columns=[{"name": i, "id": i} for i in scraped_data.columns],
+#                 data=scraped_data.to_dict('records')
+#             )
+#         else:
+#             return "No data available."
+#     else:
+#         return ""
 
 if __name__ == '__main__':
     app.run_server(debug=True)
