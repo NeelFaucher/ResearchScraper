@@ -1,7 +1,7 @@
 import dash
 from dash import html, dcc, Input, Output, State
 from dash.exceptions import PreventUpdate
-from t import scrape_2
+from tasks import scrape_2
 
 app = dash.Dash(__name__)
 server = app.server
@@ -19,7 +19,7 @@ app.layout = html.Div([
 def scrape():
     # Your scraping logic goes here
     # For demonstration, let's assume scraped_data is a string
-    scraped_data = scrape_2()
+    scraped_data = scrape_2.delay()
     return scraped_data
 
 @app.callback(

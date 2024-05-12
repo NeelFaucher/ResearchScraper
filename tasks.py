@@ -1,9 +1,15 @@
-from seleniumbase import SB
+# tasks.py
 
+
+from seleniumbase import SB
+from celery import Celery
+
+app = Celery('tasks', broker='redis://localhost:6379/0')
+
+@app.task
 def scrape_2():
     print("INSIDE SCRAPE_2")
     url_base = "https://www.nature.com/"
-    search_query = "enzymatic degradation plastic"
 
     with SB(uc=True, xvfb=True) as sb:
         print("HERE")
@@ -14,6 +20,3 @@ def scrape_2():
         print("Title of the page:", title)
 
     return title
-
-if __name__ == "__main__":
-    scrape_2()
