@@ -6,6 +6,7 @@ def scrape_2():
     search_query = "enzymatic degradation plastic"
 
     with SB(uc=True, xvfb=True) as sb:
+        print("HERE")
         sb.driver.uc_open_with_reconnect(url_base, 20)
         print("OPENED WEBSITE")
         # Get the title of the page
