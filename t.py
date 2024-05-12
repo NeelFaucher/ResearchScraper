@@ -1,6 +1,6 @@
 from seleniumbase import SB
 
-def scrape():
+def scrape_2():
     url_base = "https://www.nature.com/"
     search_query = "enzymatic degradation plastic"
 
@@ -13,4 +13,4 @@ def scrape():
     return title
 
 if __name__ == "__main__":
-    scrape()
+    scrape_2()
