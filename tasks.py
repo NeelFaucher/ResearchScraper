@@ -1,10 +1,15 @@
 # tasks.py
-
-
 from seleniumbase import SB
 from celery import Celery
 
-app = Celery('tasks', broker='redis://localhost:6379/0')
+import os
+from celery import Celery
+
+# Read the Redis URL from the environment variables
+redis_url = os.environ.get('REDIS_URL')
+
+# Create the Celery instance
+app = Celery('tasks', broker=redis_url)
 
 @app.task
 def scrape_2():
