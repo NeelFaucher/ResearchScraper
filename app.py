@@ -1,13 +1,8 @@
-from dash import Dash, html, dcc, Input, Output, dash_table
+import dash
+from dash import html, dcc, Input, Output, State
 from dash.exceptions import PreventUpdate
-import pandas as pd
-from dash.dependencies import State
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-app = Dash(__name__, external_stylesheets=external_stylesheets)
-
-server = app.server
+app = dash.Dash(__name__)
 
 app.layout = html.Div([
     html.H1("Joy's Scraper"),
@@ -19,6 +14,12 @@ app.layout = html.Div([
     html.Div(id='data-table-container')
 ])
 
+def scrape():
+    # Your scraping logic goes here
+    # For demonstration, let's assume scraped_data is a string
+    scraped_data = "Scraped data: Example"
+    return scraped_data
+
 @app.callback(
     Output('search-output', 'children'),
     [Input('search-button', 'n_clicks')],
@@ -26,8 +27,9 @@ app.layout = html.Div([
 )
 def scrape_data(n_clicks, search_value):
     if n_clicks > 0:
-        # You can add your scraping logic here if needed
-        return html.Div("Data scraped successfully")
+        # Call the scrape function and return its result
+        scraped_data = scrape()
+        return html.Div(scraped_data)
     else:
         raise PreventUpdate
 
@@ -40,7 +42,7 @@ def display_data_table(scraped_data):
         # Data not fetched yet, show loading spinner
         return html.Div("Loading...", style={'textAlign': 'center'})
     else:
-        return html.Div("No data available", style={'color': 'red'})
+        return html.Div(scraped_data, style={'color': 'blue'})
 
 if __name__ == '__main__':
     app.run_server(debug=True)
