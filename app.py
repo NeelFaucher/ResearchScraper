@@ -1,6 +1,7 @@
 import dash
 from dash import html, dcc, Input, Output, State
-from bs import scrape_bs
+from bs4 import BeautifulSoup
+import requests
 
 app = dash.Dash(__name__)
 server = app.server
@@ -11,6 +12,24 @@ app.layout = html.Div([
     html.Button('Search', id='search-button', n_clicks=0),
     html.Div(id='search-output')
 ])
+
+def scrape_bs(search_value):
+    # Send an HTTP request to the URL
+    url = f"https://www.nature.com/search?q={search_value}&order=relevance"
+    response = requests.get(url)
+
+    # Parse the HTML content
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Find the specific <a> tag by its text content
+    link = soup.find('a', text="Natural diversity screening, assay development, and characterization of nylon-6 enzymatic depolymerization")
+
+    # Extract the link if it exists
+    if link:
+        href = link.get('href')
+        return href
+    else:
+        return "Link not found."
 
 @app.callback(
     Output('search-output', 'children'),
