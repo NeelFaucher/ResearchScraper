@@ -2,6 +2,7 @@ import dash
 from dash import html, dcc, Input, Output, State
 from dash.exceptions import PreventUpdate
 from tasks import scrape_2
+from bs import scrape_bs
 
 app = dash.Dash(__name__)
 server = app.server
@@ -30,7 +31,7 @@ def scrape():
 def scrape_data(n_clicks, search_value):
     if n_clicks > 0:
         # Call the scrape function and return its result
-        scraped_data = "ab"
+        scraped_data = scrape_bs
         return html.Div(scraped_data)
     else:
         raise PreventUpdate
