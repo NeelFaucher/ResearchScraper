@@ -30,7 +30,7 @@ def scrape():
 def scrape_data(n_clicks, search_value):
     if n_clicks > 0:
         # Call the scrape function and return its result
-        scraped_data = scrape()
+        scraped_data = "ab"
         return html.Div(scraped_data)
     else:
         raise PreventUpdate
